@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+:root {
+  --main: #1864ab;
+  --white: #fff;
+  --grey: #252525;
+}
+
+body {
+  background-color: var(--grey);
+  color: var(--white);
+}
+
+h1 {
+  font-family: "Instrument Serif", Serif;
+  font-size: 86px;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+
+/* ADD BOX SHADOWS */
+
+.carousel {
+  width: 850px;
+  margin: 45px auto;
+  display: flex;
+  align-items: center;
+  background-color: var(--main);
+  gap: 70px;
+  border-radius: 32px;
+  padding: 20px;
+  padding-left: 96px;
+  position: relative;
+}
+img {
+  width: 220px;
+  border-radius: 16px;
+  transform: scale(1.4);
+}
+.comment {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.review {
+  font-size: 24px;
+  font-weight: 500;
+}
+.person {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.author {
+  font-size: 20px;
+}
+.author-position {
+  font-size: 14px;
+}
+
+.material-symbols-outlined {
+  font-size: 50px !important;
+  background-color: var(--white);
+  color: var(--grey);
+  border-radius: 6969px;
+}
+.back {
+  position: absolute;
+  left: -25px;
+}
+.forward {
+  position: absolute;
+  right: -25px;
+}
