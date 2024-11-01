@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+:root {
+  --main: #1864ab;
+  --white: #fff;
+  --grey: #252525;
+}
+
+body {
+  background-color: var(--grey);
+  color: var(--white);
+}
+
+h1 {
+  font-family: "Instrument Serif", Serif;
+  font-size: 62px;
+  color: var(--white);
+  margin-bottom: 32px;
+  width: 700px;
+  margin: 45px auto;
+  line-height: 1.2;
+}
+
+table {
+  width: 1000px;
+  margin: 45px auto;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #999;
+  padding: 16px 24px;
+}
+
+th {
+  background-color: var(--main);
+  font-size: 24px;
+  text-align: start;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #333;
+}
