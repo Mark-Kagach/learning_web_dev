@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+:root {
+  --main: #1864ab;
+  --white: #fff;
+  --grey: #252525;
+}
+
+body {
+  background-color: var(--grey);
+  color: var(--white);
+}
+
+h1 {
+  font-family: "Instrument Serif", Serif;
+  font-size: 62px;
+  color: var(--white);
+  margin-bottom: 32px;
+  width: 600px;
+  margin: 45px auto;
+  line-height: 1.2;
+}
+
+figure {
+  width: 600px;
+  margin: 45px auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.material-symbols-outlined {
+  font-size: 36px !important;
+  border: 2px solid var(--main);
+  border-radius: 100px;
+  background-color: #252525;
+  color: #fff;
+  padding: 4px;
+}
+.material-symbols-outlined:hover {
+  background-color: var(--main);
+}
+
+a,
+p {
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  color: white;
+}
+a:hover,
+a:visited {
+  background-color: var(--main);
+  border-radius: 50%;
+}
