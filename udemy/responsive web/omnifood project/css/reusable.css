@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+}
+
+:root {
+    --white: #fff;
+    --bg: #fbf9f8;
+    --bg-brown: #f2ebe7;
+
+    --text-main-grey: #333;
+    --text-secondary-grey: #555;
+    --text-tertiary-grey: #ddd;
+
+    --main: #e67e22;
+
+    --main-shade-ten: #cf711f;
+    --main-shade-twenty: #b8651b;
+
+    --main-tint-ninety: #fdf2e9;
+    --main-tint-eighty: #fae5d3;
+    --main-tint-seventy: #f8d8bd;
+    --main-tint-fifty: #f3bf91;
+    --main-tint-thirty: #eea564;
+    --main-tint-ten: #e98b38;
+    --main-tint-twenty: #eb984e;
+}
+
+html {
+    font-size: 62.5%;
+    background-color: var(--bg);
+    /* It would've been enough to do just this one line
+    if apple got their shit together... ;( */
+    /* scroll-behavior: smooth; */
+}
+
+body {
+    color: var(--text-main-grey);
+}
+
+/* ****************************** */
+/* REUSABLE */
+/* ****************************** */
+
+/* TODO ADD WIGGLY, CURVED LINES AS CONTAINER BORDERS */
+
+/* ************* */
+/* CONTAINERS */
+/* ************* */
+.container-big {
+    width: 120rem;
+    margin: 0 auto;
+}
+.container-small {
+    width: 106rem;
+    margin: 0 auto;
+}
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+.flex-col-centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.grid {
+    display: grid;
+}
+.grid--3-cols {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6rem;
+}
+.grid--2-cols {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6rem;
+}
+.grid--2-rows {
+    grid-template-rows: repeat(2, 1fr);
+}
+.flex-row {
+    display: flex;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ************* */
+/* BUTTONS */
+/* ************* */
+.menu-btn,
+.cta-btn,
+.hero-button {
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text-main-grey);
+    transition: all 0.33s;
+}
+.hero-button,
+.cta-btn {
+    background-color: var(--main);
+    padding: 12px 20px;
+    font-weight: 700;
+    color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(230, 126, 34, 0.3);
+    transition: all 0.66s;
+    width: fit-content;
+}
+.hero-button {
+    margin-bottom: 6rem;
+    /* TODO not sure about this. Remake margins. */
+}
+
+.menu-btn:hover {
+    color: var(--main);
+}
+.cta-btn:hover,
+.hero-button:hover {
+    background-color: var(--main-tint-ten);
+    box-shadow: 0 0 10px rgba(230, 126, 34, 1);
+    text-shadow: 0 0 1px var(--main-tint-ninety);
+}
+
+/* ************* */
+/* TYPOGRAPHY */
+/* ************* */
+.mini-heading {
+    font-size: 1.4rem;
+    font-weight: 500;
+    border: 1px solid var(--main-shade-ten);
+    padding: 8px 12px;
+    color: var(--main-shade-ten);
+    border-radius: 100px;
+    background-color: var(--main-tint-ninety);
+}
+.header-one {
+    font-size: 4.4rem;
+    font-weight: 700;
+    margin: 1.6rem 0 4rem 0;
+}
+
+.header-three {
+    font-size: 3.4rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+.header-four {
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin-bottom: 2.4rem;
+    letter-spacing: -1px;
+}
+
+.description {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-secondary-grey);
+    margin-bottom: 1.8rem;
+}
+
+strong {
+    font-weight: 600;
+}
+
+a:link,
+a:visited {
+    font-size: 2rem;
+    color: var(--main);
+    transition: all 0.5s;
+    text-align: center;
+    display: block;
+    margin: 4rem 0 4rem 0;
+}
+a:hover,
+a:active {
+    color: var(--main-shade-ten);
+    text-decoration: none;
+}
