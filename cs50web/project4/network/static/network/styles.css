@@ -1,0 +1,25 @@
+.new_post {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+    textarea{
+        width: 300px;
+    }
+    button{
+        width: 60px;
+    }   
+
+.body{
+    display: flex;
+    justify-content: center;
+}   
+    .pretty_body {
+        width: 500px;
+    }
+
+strong{
+    font-size: 20px;
+}
+
+

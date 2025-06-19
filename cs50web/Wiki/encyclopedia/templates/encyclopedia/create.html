@@ -1,0 +1,30 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create Page
+{% endblock %}
+
+{% block body %}
+    <!--
+    1. Check whether the name of the page is already taken
+    2. have multiple input tags and 1 submit
+    -->
+    <h1>Create Page</h1>
+    <form class="create" action="{% url 'create' %}" method="post">
+        <!--
+        To prevent webiset attacks where data gets stolen django requires for you to submit CSRF token, 
+        especially when it comes to post, because this is the most vulnerable method for the server.
+        -->
+        {% csrf_token %}
+
+        <input type="text" name="title" placeholder="Title">
+        <textarea placeholder="Describe" name="description"></textarea>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+
+{% endblock %}

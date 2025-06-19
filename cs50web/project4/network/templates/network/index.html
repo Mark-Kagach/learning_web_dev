@@ -1,0 +1,144 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    <form class="new_post" action = "{% url 'new_post' %}" method="post">
+        {% csrf_token %}
+        <h2>New Post</h2>
+        <textarea name="body" placeholder="Your New Post"></textarea>
+        <button type="submit">Post</button>
+    </form>
+    <hr>
+
+    <div class="all_posts">
+        <h2>All Posts</h2>
+        {% for post in page_obj %}
+
+            <div class="post" data-post-id="{{post.id}}">
+                <a href="{% url 'profile' post.owner %}" style="font-weight: 600; font-size: 20px;">{{post.owner}}</a>
+                <p id="post-body-{{post.id}}">{{post.body}}</p>
+                
+                <button class="like-button" data-post-id="{{ post.id }}">
+                    {% if request.user in post.likes.all %}
+                        Unlike
+                    {% else %}
+                        Like
+                    {% endif %}
+                </button>
+                <p id="like-count-{{ post.id }}">{{ post.likes.count }} Likes</p>
+
+                <p style="color:gray">at {{post.time}}</p>
+
+                {% if user.is_authenticated %}
+                    {% if user == post.owner %}
+                        <button class="edit-button">Edit</button>
+
+                        <form class="edit-form" style="display: none;">
+                            {% csrf_token %}
+                            <textarea class="edit-textarea">{{post.body}}</textarea>
+                            <button type="submit" class="save-button">Save</button>
+                        </form>
+                    {% endif %}
+                {% endif %}
+
+                <hr>
+            </div>
+
+        {% endfor %}
+
+        {% if page_obj.has_previous %}
+            <p><a href="?page={{ page_obj.previous_page_number }}">Previous</a></p>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <p><a href="?page={{ page_obj.next_page_number }}">Next</a></p>
+        {% endif %}
+        <p></p>
+    </div>
+
+    <script>
+
+        document.querySelectorAll('.edit-button').forEach(button => {
+            button.addEventListener('click', edit);
+        });
+
+        document.querySelectorAll('.edit-form').forEach(form => {
+            form.addEventListener('submit', save);
+        });
+
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', like);
+        });
+
+        function like(event) {
+            const postId = event.target.dataset.postId;
+
+            fetch(`/like/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie("csrftoken")
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector(`#like-count-${postId}`).textContent = `${data.likes} Likes`;
+                if (data.liked) {
+                    event.target.textContent = 'Unlike';
+                } else {
+                    event.target.textContent = 'Like';
+                }
+            })
+        }
+
+        function edit(event) {
+            const postDiv = event.target.closest('.post');
+            const postId = postDiv.dataset.postId;
+            const form = postDiv.querySelector('.edit-form');
+            const button = postDiv.querySelector('.edit-button');
+            const body = postDiv.querySelector(`#post-body-${postId}`);
+
+            form.style.display = 'block';
+            body.style.display = 'none';
+            button.style.display='none';
+        }
+
+        function save(event) {
+            event.preventDefault();
+
+            const postDiv = event.target.closest('.post');
+            const postId = postDiv.dataset.postId;
+            const textarea = postDiv.querySelector('.edit-textarea');
+            const body = postDiv.querySelector(`#post-body-${postId}`);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            const form = event.target;
+
+            fetch(`/edit/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie("csrftoken")
+                },
+                body: JSON.stringify({
+                    body: textarea.value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                body.textContent = data.body;
+                textarea.value = data.body;
+                form.style.display = 'none';
+                body.style.display = 'block';
+            })
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if(parts.length==2) return parts.pop().split(';').shift();
+        }
+        
+    </script>
+
+    
+{% endblock %}

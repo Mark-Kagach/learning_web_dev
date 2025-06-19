@@ -1,0 +1,120 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <p></p>
+    <h2>{{account.username}}</h2>
+    <!--How to make this an integer?-->
+    <p>Following {{following}}; Followers {{followers}}</p>
+
+    {% if follow_b %}
+        <form action = "{% url 'profile' account.username %}" method="post">
+            {% csrf_token %}
+            
+            <button type="submit" name="follow">Follow</button>
+        </form>
+    {% endif %}
+    {% if unfollow_b %}
+        <form action = "{% url 'profile' account.username %}" method="post">
+            {% csrf_token %}
+            
+            <button type="submit" name="unfollow">Unfollow</button>
+        </form>
+    {% endif %}
+
+    <hr>
+    <h3>Posts</h3>
+    {% for post in page_obj %}
+
+        <div class="post" data-post-id="{{post.id}}">
+            <p id="post-body-{{post.id}}">{{post.body}}</p>
+            <p style="color:red">{{post.likes}} Likes</p>
+            <p style="color:gray">at {{post.time}}</p>
+
+            {% if owner %}
+                <button class="edit-button">Edit</button>
+
+                <form class="edit-form" style="display: none;">
+                    {% csrf_token %}
+                    <textarea class="edit-textarea">{{post.body}}</textarea>
+                    <button type="submit" class="save-button">Save</button>
+                </form>
+            {% endif %}
+
+            <hr>
+        </div>
+
+    {% endfor %}
+    
+
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+    <p></p>
+    <script>
+
+        document.querySelectorAll('.edit-button').forEach(button => {
+            button.addEventListener('click', edit);
+        });
+
+        document.querySelectorAll('.edit-form').forEach(form => {
+            form.addEventListener('submit', save);
+        });
+
+        function edit(event) {
+            const postDiv = event.target.closest('.post');
+            const postId = postDiv.dataset.postId;
+            const form = postDiv.querySelector('.edit-form');
+            const button = postDiv.querySelector('.edit-button');
+            const body = postDiv.querySelector(`#post-body-${postId}`);
+
+            form.style.display = 'block';
+            body.style.display = 'none';
+            button.style.display='none';
+        }
+
+        function save(event) {
+            event.preventDefault();
+
+            const postDiv = event.target.closest('.post');
+            const postId = postDiv.dataset.postId;
+            const textarea = postDiv.querySelector('.edit-textarea');
+            const body = postDiv.querySelector(`#post-body-${postId}`);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            const form = event.target;
+
+            fetch(`/edit/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie("csrftoken")
+                },
+                body: JSON.stringify({
+                    body: textarea.value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                body.textContent = data.body;
+                textarea.value = data.body;
+                form.style.display = 'none';
+                body.style.display = 'block';
+            })
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if(parts.length==2) return parts.pop().split(';').shift();
+        }
+        
+    </script>
+
+{% endblock %}

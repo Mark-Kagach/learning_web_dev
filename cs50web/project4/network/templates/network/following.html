@@ -1,0 +1,30 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    <div class="all_posts">
+        <h2>Following</h2>
+        {% for post in page_obj %}
+
+            <div class="post" data-post-id="{{post.id}}">
+                <a href="{% url 'profile' post.owner %}" style="font-weight: 600; font-size: 20px;">{{post.owner}}</a>
+                <p id="post-body-{{post.id}}">{{post.body}}</p>
+                <p style="color:red">{{post.likes}} Likes</p>
+                <p style="color:gray">at {{post.time}}</p>
+
+                <hr>
+            </div>
+
+        {% endfor %}
+
+        {% if page_obj.has_previous %}
+            <p><a href="?page={{ page_obj.previous_page_number }}">Previous</a></p>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <p><a href="?page={{ page_obj.next_page_number }}">Next</a></p>
+        {% endif %}
+        <p></p>
+    </div>
+
+{% endblock %}
