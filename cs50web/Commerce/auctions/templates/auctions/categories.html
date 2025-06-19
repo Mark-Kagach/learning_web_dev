@@ -1,0 +1,28 @@
+<!--
+Categories: Users should be able to visit a page that displays 
+a list of all listing categories. Clicking on the name of any 
+category should take the user to a page that displays all of 
+the active listings in that category.
+-->
+
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    {% for listing in listings %}
+        {% if forloop.first %}
+            <h2>{{ listing.get_category_display }}</h2>
+            <hr>
+        {% endif %}
+
+        <h3><a href="{% url 'listing' listing.id %}">{{listing.name}}</a>; {{listing.price}}$</h3>
+        <p>{{ listing.active }}</p>
+        <img style="width: 300px" src="{{listing.photo}}"/>
+        <p style="color:red">Highest bidder: {{listing.best_bidder}}</p>
+        <p style="color:green">Owner: {{listing.owner}}</p>
+        <p style="width: 400px">{{listing.description}}</p>
+        <a href="{% url 'categories' listing.category %}"> <p>{{ listing.get_category_display }}</p> </a>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

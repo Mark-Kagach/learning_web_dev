@@ -1,0 +1,23 @@
+<!--
+Watchlist: Users who are signed in should be able to visit a Watchlist page, 
+which should display all of the listings that a user has added to their watchlist. 
+Clicking on any of those listings should take the user to that listing’s page.
+-->
+
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watchlist</h2>
+
+    <hr>
+    {% for listing in listings %}
+        <h3><a href="{% url 'listing' listing.id %}">{{listing.name}}</a>; {{listing.price}}$</h3>
+        <img style="width: 300px" src="{{listing.photo}}"/>
+        <p style="color:red">Highest bidder: {{listing.best_bidder}}</p>
+        <p style="color:green">Owner: {{listing.owner}}</p>
+        <p style="width: 400px">{{listing.description}}</p>
+        <a href="{% url 'categories' listing.category %}"> <p>{{ listing.get_category_display }}</p> </a>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

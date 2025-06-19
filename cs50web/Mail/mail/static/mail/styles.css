@@ -1,0 +1,13 @@
+textarea {
+    min-height: 400px;
+}
+
+#email {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid black;
+}
+.sender {
+    font-weight: bold;
+}
