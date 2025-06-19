@@ -1,0 +1,80 @@
+body {
+    background-color: #202124;
+    font-family: helvetica, sans-serif;
+    color: white;
+}
+
+.navigation {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+    .navigation a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+.search {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 40px;
+    padding-left: 40px;
+}
+    .search input{
+        border: 1px solid white;
+        margin: 10px;
+    }
+
+    .search input[type="text"] {
+        background-color: #3f3f3f;
+        font-size: 15px;
+        display: grid;
+        width: 100%;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    h1 {
+        text-align: left;
+        font-size: 30px;
+        color: rgb(168, 48, 48);
+        display: grid;
+        margin: 5px;
+    }
+
+    .options {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        margin-top: 5px;
+        gap: 20px;
+    }
+    .right{
+        width: 385px;
+    }  
+    .left {
+        width: 200px;
+    }
+
+.button {
+    display: flex;
+    justify-content: flex-end;
+    width: 640px;
+    margin-top: 10px;
+}
+.button input[type="submit"] {
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #1f93ff;
+    color: white;
+    border: 1px;
+}
