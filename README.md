@@ -1,1 +1,1 @@
-All my practice web development projects.
+Archived: All my practice web development projects.
